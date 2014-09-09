@@ -46,7 +46,7 @@ function resMaker(trackList) {
     };
     var textRespond = "";
     for(var i = 0; i < 5; i++){
-        textRespond += (trackList[i].name + " " + "<"+spotifyLink + trackList[i].id+">"+"\n");
+        textRespond += ("<"+spotifyLink + trackList[i].id+"|"+trackList[i].name+">"+"\n");
     }
     respond.text = textRespond;
     return respond;
