@@ -29,7 +29,7 @@ router.route('/slotify')
     .post(function (req, res) {
         var rawRequest = req.body.text;
         console.log(req.body.text, "this loaded");
-        var artist = rawRequest.substring(rawRequest.indexOf(':')+2);
+        var artist = rawRequest.substring("slotify ".length -1);
         console.log(artist);
         console.log('Searching for artist...');
         spotifySearch.queryToID(artist, function(ID){
