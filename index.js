@@ -29,6 +29,7 @@ router.route('/slotify')
     .post(function (req, res) {
         var rawRequest = req.body.text;
         var artist = rawRequest.substring(rawRequest.indexOf(':')+2);
+        console.log('artist');
         console.log('Searching for artist...');
         spotifySearch.queryToID(artist, function(ID){
             spotifySearch.getTopTracks(ID, function(list){
