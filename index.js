@@ -28,6 +28,7 @@ router.route('/slotify')
 
     .post(function (req, res) {
         var rawRequest = req.body.text;
+        console.log(req.body.text)
         var artist = rawRequest.substring(rawRequest.indexOf(':')+2);
         console.log(artist);
         console.log('Searching for artist...');
