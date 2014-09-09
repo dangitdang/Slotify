@@ -14,9 +14,7 @@ var makeSlackResponse = function(trackList) {
     var track = trackList[i];
     textResponse += ('<' + spotifyLink + track.id + '|' + track.name + '>\n');
   }
-  var responseJSON = {'text' : textResponse};
-  console.log(responseJSON);
-  return responseJSON;
+  return {'text' : textResponse};
 }
 
 var router = express.Router();
@@ -24,27 +22,24 @@ router.use(function(req, res, next){
   console.log('Received a request...');
   next();
 });
+
 router.get('/', function(req,res) {
     res.json({message: 'Welcome!'});
     res.send('hello!');
 });
+
 router.route('/slotify').post(function(req, res) {
   var requestString = req.body.text;
-  console.log("req.body.text: " + req.body.text);
   var slotifyPrefixOffset = ('slotify '.length - 1);
   var artistName = requestString.substring(slotifyPrefixOffset);
-  console.log('performing a search for: ' + artistName);
+  console.log('Performing a search for: ' + artistName);
   spotifySearch.getTracksByArtist(artistName, 5).then(function(trackList) {
-    console.log('success!');
-    console.log(arguments);
     return res.json(makeSlackResponse(trackList));
   }, function(error) {
-    console.log('failure!');
-    console.log(arguments);
     return res.json({"error": error});
   });
 });
 
 app.use('/api', router);
 app.listen(port);
-console.log("Started server on " + port);
+console.log("Slotify is listening on port " + port);

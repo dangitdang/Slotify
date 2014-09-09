@@ -20,11 +20,8 @@ module.exports = new function() {
         artistID, spotifyRegion);
       return tracksPromise.then(function(data) {
         var topTracks = [];
-        console.log('requested ' + numberOfTracks + ' tracks');
         numberOfTracks = Math.max(
           0, Math.min(numberOfTracks, data.tracks.length));
-        console.log('returning ' + numberOfTracks + ' tracks');
-        console.log(data.tracks);
         // TODO(peter): why not just take the first numberOfTracks items out of
         // data.tracks?
         for (var i = 0; i < numberOfTracks; i++) {
@@ -33,7 +30,6 @@ module.exports = new function() {
             'id': data.tracks[i].id,
           });
         }
-        console.log(topTracks);
         return topTracks;
       });
     });
