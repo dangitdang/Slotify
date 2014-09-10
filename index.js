@@ -31,7 +31,7 @@ router.get('/', function(req,res) {
 
 router.route('/slotify').post(function(req, res) {
   var requestString = req.body.text;
-  var slotifyPrefixOffset = ('slotify '.length);
+  var slotifyPrefixOffset = ('slotify '.length -1);
   var artistName = requestString.substring(slotifyPrefixOffset);
   console.log('Performing a search for: ' + artistName);
   spotifySearch.getTracksByArtist(artistName, 5).then(function(trackList) {
