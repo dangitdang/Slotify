@@ -7,15 +7,16 @@ var app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
-var makeSlackResponse = function(trackList) {
+var makeSlackResponse = function(artist, trackList) {
   var spotifyLink = "https://open.spotify.com/track/";
-  var textResponse = '';
+  var textResponse = "Top tracks for "+ artist +"\n";
   for (var i = 0; i < trackList.length; i++) {
     var track = trackList[i];
     textResponse += ('<' + spotifyLink + track.id + '|' + track.name + '>\n');
   }
+  console.log('Request completed');
   return {'text' : textResponse};
-}
+};
 
 var router = express.Router();
 router.use(function(req, res, next){
@@ -30,11 +31,11 @@ router.get('/', function(req,res) {
 
 router.route('/slotify').post(function(req, res) {
   var requestString = req.body.text;
-  var slotifyPrefixOffset = ('slotify '.length - 1);
+  var slotifyPrefixOffset = ('slotify '.length);
   var artistName = requestString.substring(slotifyPrefixOffset);
   console.log('Performing a search for: ' + artistName);
   spotifySearch.getTracksByArtist(artistName, 5).then(function(trackList) {
-    return res.json(makeSlackResponse(trackList));
+    return res.json(makeSlackResponse(artistName, trackList));
   }, function(error) {
     return res.json({"error": error});
   });
