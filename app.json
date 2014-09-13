@@ -1,7 +1,7 @@
 {
   "name": "Slotify",
-  "description": "Slack plugin that returns top 5 tracks of an artist",
-  "repository": "",
+  "description": "Slack plugin that returns top tracks of an artist",
+  "repository": "github.com/dangitdang/Slotify",
   "logo": "",
   "keywords": ["node", "spotify", "slotify"]
 }
